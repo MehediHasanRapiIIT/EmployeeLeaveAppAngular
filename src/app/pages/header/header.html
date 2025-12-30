@@ -1,0 +1,99 @@
+<!-- Top Navbar -->
+<nav class="navbar navbar-dark bg-dark sticky-top">
+  <div class="container-fluid">
+    <!-- Toggle Button -->
+    <button 
+      class="btn btn-outline-light me-3"
+      type="button" 
+      (click)="toggleSidebar()"
+      aria-label="Toggle sidebar">
+      <i class="fa fa-bars"></i>
+    </button>
+
+    <!-- Brand -->
+    <span class="navbar-brand mb-0 h1">
+      <i class="fa fa-leaf"></i> Employee Leave App
+    </span>
+
+    <!-- User Info & Logout -->
+    <div class="d-flex align-items-center">
+      <span class="text-light me-3" *ngIf="loggedInUsername()">
+        <i class="fa fa-user-circle"></i> {{ loggedInUsername() }}
+      </span>
+      <button 
+        class="btn btn-outline-danger btn-sm"
+        (click)="logout()"
+        *ngIf="loggedInUsername()"
+        aria-label="Logout">
+        <i class="fa fa-sign-out"></i> Logout
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="d-flex">
+  <nav 
+    class="sidebar bg-light"
+    [class.sidebar-open]="sidebarOpen()">
+    
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a 
+          class="nav-link" 
+          routerLink="employee">
+          <i class="fa fa-home"></i>
+          <span class="nav-text">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          class="nav-link" 
+          routerLink="employee">
+          <i class="fa fa-users"></i>
+          <span class="nav-text">Employees</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          class="nav-link" 
+          routerLink="leave-request">
+          <i class="fa fa-file-text"></i>
+          <span class="nav-text">Leave Requests</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          class="nav-link" 
+          routerLink="balance">
+          <i class="fa fa-calendar"></i>
+          <span class="nav-text">Leave Balance</span>
+        </a>
+      </li>
+
+      <li class="nav-item mt-auto">
+        <hr>
+      </li>
+
+      <li class="nav-item">
+        <a 
+          class="nav-link text-danger"
+          (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+          <span class="nav-text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <div class="main-content" [class.sidebar-open]="sidebarOpen()">
+    <!-- Content will be rendered here by router -->
+  </div>
+  <main class="p-3 flex-grow-1 overflow-auto">
+    <router-outlet></router-outlet>
+  </main>
+</div>
