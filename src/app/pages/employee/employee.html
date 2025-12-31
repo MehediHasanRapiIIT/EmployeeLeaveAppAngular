@@ -1,1 +1,192 @@
-<p>employee works!</p>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Employee List Table -->
+    <div class="col-md-7">
+      <div class="card shadow-sm">
+        <!-- Card Header with Title -->
+        <div class="card-header bg-primary text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="fa fa-list"></i> Employee List
+            </h5>
+            <button class="btn btn-sm btn-light">
+              <i class="fa fa-refresh"></i> Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Body with Table -->
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Designation</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of employeeList(); track $index) {
+                <tr>
+                  <td>{{ $index+1 }}</td>
+                  <td>{{ item.empName }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.deptName }}</td>
+                  <td>{{ item.designation }}</td>
+                  <td>
+                    <button (click)="onEdit(item)" class="btn btn-sm btn-warning me-2" title="Edit">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="onDeleteEmployee(item.empId)" title="Delete">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                }
+                <!-- Sample Row -->
+                
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <nav aria-label="Page navigation">
+            <ul class="pagination pagination-sm justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link" routerLink="employee">Previous</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" routerLink="employee">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" routerLink="employee">2</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" routerLink="employee">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" routerLink="employee">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Employee Form -->
+    <div class="col-md-5">
+      <div class="card shadow-sm">
+        <!-- Card Header with Title -->
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">
+            <i class="fa fa-user-plus"></i> Add Employee
+          </h5>
+        </div>
+
+        <!-- Card Body with Form -->
+        <div class="card-body">
+          <form>
+            <!-- Employee ID (Hidden for New) -->
+
+            <!-- Employee Name -->
+            <div class="mb-3">
+              <label for="empName" class="form-label">
+                <i class="fa fa-user"></i> Employee Name
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="employeeObj.empName" name="empName" id="empName" placeholder="Enter full name" required>
+              <small class="text-danger"></small>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="mb-3">
+              <label for="contactNo" class="form-label">
+                <i class="fa fa-phone"></i> Contact Number
+              </label>
+              <input type="tel" class="form-control" [(ngModel)]="employeeObj.contactNo" name="contactNo" id="contactNo" placeholder="Enter contact number" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">
+                <i class="fa fa-envelope"></i> Email
+              </label>
+              <input type="email" class="form-control" [(ngModel)]="employeeObj.email" name="email" id="email" placeholder="Enter email address" required>
+            </div>
+
+            <!-- Department -->
+            <div class="mb-3">
+              <label for="deptName" class="form-label">
+                <i class="fa fa-building"></i> Department
+              </label>
+              <select class="form-select" [(ngModel)]="employeeObj.deptName" name="deptName" id="deptName" required>
+                <option value="">Select Department</option>
+                <option value="IT">IT</option>
+                <option value="HR">HR</option>
+                <option value="Finance">Finance</option>
+                <option value="Sales">Sales</option>
+                <option value="Operations">Operations</option>
+              </select>
+            </div>
+
+            <!-- Designation -->
+            <div class="mb-3">
+              <label for="designation" class="form-label">
+                <i class="fa fa-briefcase"></i> Designation
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="employeeObj.designation" name="designation" id="designation" placeholder="Enter designation" required>
+            </div>
+
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="userName" class="form-label">
+                <i class="fa fa-at"></i> Username
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="employeeObj.userName" name="userName" id="userName" placeholder="Enter username" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                <i class="fa fa-lock"></i> Password
+              </label>
+              <input type="password" class="form-control" [(ngModel)]="employeeObj.password" name="password" id="password" placeholder="Enter password" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                <i class="fa fa-lock"></i> Role
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="employeeObj.role" name="role" id="role" placeholder="Enter role" required>
+            </div>
+
+            <!-- Sick Leave Balance -->
+
+
+            <!-- Paid Leave Balance -->
+            <!-- Form Actions -->
+            <div class="d-grid gap-2">
+
+              @if (employeeObj.empId===0) {
+                <button type="submit" (click)="onSaveEmployee()" class="btn btn-success">
+                <i class="fa fa-save"></i> Save Employee
+              </button>
+              }@else{
+                <button type="submit" (click)="onUpdateEmployee()" class="btn btn-warning">
+                <i class="fa fa-save"></i> Update Employee
+              </button>
+              }
+              
+              
+              <button type="reset" class="btn btn-secondary">
+                <i class="fa fa-undo"></i> Clear
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

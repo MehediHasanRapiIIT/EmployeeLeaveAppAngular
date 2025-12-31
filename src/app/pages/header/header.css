@@ -1,6 +1,6 @@
 /* Sidebar Styling */
 .sidebar {
-  width: 250px;
+  width: 200px;
   min-height: calc(100vh - 56px);
   position: fixed;
   left: 0;
@@ -19,7 +19,7 @@
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
-    width: 200px;
+    width: 100px;
     z-index: 999;
   }
 
@@ -32,7 +32,7 @@
 /* Main Content Area */
 .main-content {
   flex: 1;
-  margin-left: 250px;
+  margin-left: 50px;
   transition: margin-left 0.3s ease;
   padding: 20px;
 }
