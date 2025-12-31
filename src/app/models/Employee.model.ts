@@ -33,3 +33,9 @@ export interface ApiResponseModel{
     data:any;
 
 }
+
+export interface LoginModel{
+
+  useName:string;
+  password:string;
+}

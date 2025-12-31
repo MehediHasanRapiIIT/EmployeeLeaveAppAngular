@@ -17,13 +17,13 @@
 
     <!-- User Info & Logout -->
     <div class="d-flex align-items-center">
-      <span class="text-light me-3" *ngIf="loggedInUsername()">
-        <i class="fa fa-user-circle"></i> {{ loggedInUsername() }}
+      <span class="text-light me-3" *ngIf="username">
+        <i class="fa fa-user-circle"></i> {{ username }}
       </span>
       <button 
         class="btn btn-outline-danger btn-sm"
         (click)="logout()"
-        *ngIf="loggedInUsername()"
+        *ngIf="username"
         aria-label="Logout">
         <i class="fa fa-sign-out"></i> Logout
       </button>

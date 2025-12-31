@@ -11,7 +11,8 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 })
 export class Header implements OnInit {
   sidebarOpen = signal(true);
-  loggedInUsername = signal<string | null>(null);
+  username = '';
+  role = '';
 
   constructor(
     private masterService: MasterService,
@@ -27,16 +28,17 @@ export class Header implements OnInit {
   }
 
   getLoggedInUser() {
-    const user = localStorage.getItem('loggedInUser');
-    if (user) {
-      this.loggedInUsername.set(user);
+    const user = localStorage.getItem('leaveUser');
+    if (user != null) {
+      const userObj = JSON.parse(user);
+      this.username = userObj.userName;
+      this.role = userObj.role;
     }
   }
 
   logout() {
-    localStorage.removeItem('loggedInUser');
-    localStorage.removeItem('authToken');
-    this.loggedInUsername.set(null);
-    this.router.navigate(['/login']);
+    localStorage.removeItem('leaveUser');
+    
+    this.router.navigateByUrl('login');
   }
 }
