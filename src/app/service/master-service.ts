@@ -15,4 +15,12 @@ export class MasterService {
     return this.http.post<any>('https://api.freeprojectapi.com/api/LeaveTracker/login', obj);
   }
 
+  onAddLeave(obj: any) {
+    return this.http.post<ApiResponseModel>('https://api.freeprojectapi.com/api/LeaveTracker/AddLeaveBalance', obj);
+  }
+
+  getAllLeave() {
+    return this.http.get<ApiResponseModel>('https://api.freeprojectapi.com/api/LeaveTracker/getAllLeave');
+  }
+
 }
