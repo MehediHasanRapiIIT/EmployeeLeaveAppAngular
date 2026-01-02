@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiResponseModel, LoginModel } from '../models/Employee.model';
+import { ApiResponseModel, EmployeeModel, LoginModel } from '../models/Employee.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,11 @@ export class MasterService {
   }
 
   getAllLeave() {
-    return this.http.get<ApiResponseModel>('https://api.freeprojectapi.com/api/LeaveTracker/getAllLeave');
+    return this.http.get<any[]>('https://api.freeprojectapi.com/api/LeaveTracker/GetAllBalances');
+  }
+
+  getAllEmployee() {
+    return this.http.get<any[]>('https://api.freeprojectapi.com/api/LeaveTracker/getAllEmployee');
   }
 
 }

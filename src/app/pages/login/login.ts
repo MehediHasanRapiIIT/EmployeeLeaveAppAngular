@@ -26,7 +26,11 @@ onLogin() {
 this.masterSer.onLogin(formValue).subscribe({
   next:(result:any)=>{
     localStorage.setItem('leaveUser', JSON.stringify(result));
-    this.router.navigateByUrl('employee');
+    if(result.role == 'Hr'){
+      this.router.navigateByUrl('employee');
+    }else{
+      this.router.navigateByUrl('leave-request');
+    }
   },
   error:(error:any)=>{
     alert(error.error.message);

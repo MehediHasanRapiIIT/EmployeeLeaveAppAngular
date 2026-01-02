@@ -15,8 +15,8 @@
     </div>
 
     <!-- Leave Balance Cards Grid -->
-    <div class="row g-4" *ngIf="leaveBalances.length > 0">
-        <div class="col-lg-4 col-md-6" *ngFor="let leave of leaveBalances">
+    <div class="row g-4" *ngIf="leaveBalances().length > 0">
+        <div class="col-lg-4 col-md-6" *ngFor="let leave of leaveBalances()">
             <div class="card border-0 shadow-sm h-100">
                 <!-- Card Header with Leave Type -->
                 <div class="card-header bg-white border-0 pt-4 pb-0">
@@ -43,7 +43,7 @@
                     <div class="mb-3">
                         <p class="mb-1 small">
                             <span class="text-muted">Last updated:</span> 
-                            <span class="updated-date">{{ leave.updatedDate }}</span>
+                            <span class="updated-date">{{ leave.updatedDate | date:'dd-MM-yyyy'  }}</span>
                         </p>
                         <p class="mb-0 small">
                             <span class="text-muted">Updated by:</span> 
@@ -126,14 +126,13 @@
                         <label class="form-label">
                             <i class="fa fa-user me-2 text-primary"></i>Employee ID
                         </label>
-                        <input 
-                            type="number" 
-                            class="form-control" 
-                            [(ngModel)]="newleavebalanceObj.empId"
-                            name="empId"
-                            placeholder="Enter employee ID"
-                            required
-                        >
+                        <select name="empId" class="form-select" [(ngModel)]="newleavebalanceObj.empId">
+                            @for (item of allEmpList$|async; track $index) {
+                                <option [value]="item.empId">{{ item.empName }}</option>
+                            }
+                            <option value=""></option>
+
+                        </select>
                     </div>
 
                     <!-- Leave Type -->
@@ -148,8 +147,8 @@
                             required
                         >
                             <option value="">Select leave type</option>
-                            <option value="Paid Leave">Paid Leave</option>
-                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="paidLeave">Paid Leave</option>
+                            <option value="sickLeave">Sick Leave</option>
                         </select>
                     </div>
 
@@ -165,35 +164,6 @@
                             name="count"
                             placeholder="Number of days"
                             min="0"
-                            required
-                        >
-                    </div>
-
-                    <!-- Updated By -->
-                    <div class="mb-3">
-                        <label class="form-label">
-                            <i class="fa fa-user-tie me-2 text-primary"></i>Updated By
-                        </label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            [(ngModel)]="newleavebalanceObj.updateBy"
-                            name="updateBy"
-                            placeholder="Your name or ID"
-                            required
-                        >
-                    </div>
-
-                    <!-- Updated Date -->
-                    <div class="mb-3">
-                        <label class="form-label">
-                            <i class="fa fa-clock-o me-2 text-primary"></i>Updated Date
-                        </label>
-                        <input 
-                            type="date" 
-                            class="form-control" 
-                            [(ngModel)]="newleavebalanceObj.updatedDate"
-                            name="updatedDate"
                             required
                         >
                     </div>
