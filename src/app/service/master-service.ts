@@ -27,4 +27,12 @@ export class MasterService {
     return this.http.get<any[]>('https://api.freeprojectapi.com/api/LeaveTracker/getAllEmployee');
   }
 
+  onLeaveRequest(obj: any) {
+    return this.http.post<any>('https://api.freeprojectapi.com/api/LeaveTracker/request', obj);
+  }
+
+  getAllLeaveRequestById(id:number){
+    return this.http.get<any[]>('https://api.freeprojectapi.com/api/LeaveTracker/GetLeaveRequestsbyEmpId?empid='+id);
+  }
+
 }
